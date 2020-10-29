@@ -1,0 +1,96 @@
+﻿@model TheMovies.Models.Peliculas
+
+
+<body>
+
+    <style>
+        input {
+            text-align: center;
+        }
+    </style>
+
+    @Html.Partial("~/Views/Main/Menu.cshtml")
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__panel is-active" id="tabNewClient">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <div class="full-width panel mdl-shadow--2dp">
+                        <div class="full-width panel-tittle bg-primary text-center tittles">
+                            Agregar Peliculas
+                        </div>
+
+                        <div class="full-width panel-content">
+
+                            @using (Html.BeginForm("CrearPeliculas", "Peliculas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        @Html.TextBoxFor(x => x.Nombre, new { @class = "mdl-textfield__input" })
+                                        <label class="mdl-textfield__label" for="NameClient">Nombre</label>
+                                        @Html.ValidationMessageFor(x => x.Nombre)
+                                    </div>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        @Html.DropDownListFor(x => x.Genero, new SelectList(new List<SelectListItem> {
+                                        new SelectListItem { Text = "Accion", Value = "Accion"},
+                                        new SelectListItem { Text = "Terror", Value = "Terror"},
+                                        new SelectListItem { Text = "Drama", Value = "Drama"},
+                                        new SelectListItem { Text = "Comedia", Value = "Comedia"}
+                                        }, "Value", "Text"),
+                                        "Seleciona El Genero",
+                                        new { @class = "mdl-textfield__input" })
+
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.Genero)
+                                </div>
+
+
+
+                                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+                                        @Html.TextBoxFor(x => x.AñoPublicacion, new { @type = "number", @class = "mdl-textfield__input" })
+                                        <label class="mdl-textfield__label" for="phoneClient">Año</label>
+                                        @Html.ValidationMessageFor(x => x.AñoPublicacion)
+                                    </div>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        @Html.TextBoxFor(x => x.Director, new { @class = "mdl-textfield__input" })
+                                        <label class="mdl-textfield__label" for="NameClient">Director</label>
+                                        @Html.ValidationMessageFor(x => x.Director)
+                                    </div>
+                                </div>
+
+
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+                                    <div class="mdl-textfield mdl-js-textfield">
+                                        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                                    </div>
+
+                                </div>
+
+                                <div class="text-center">
+                                    <input type="submit" value="+" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addClient" />
+                                    <div class="mdl-tooltip" for="btn-addClient">Crear Peliculas</div>
+
+                                </div>
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

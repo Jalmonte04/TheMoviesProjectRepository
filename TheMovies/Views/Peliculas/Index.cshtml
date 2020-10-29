@@ -1,0 +1,168 @@
+﻿@model PagedList.IPagedList<TheMovies.Models.Peliculas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<body>
+    <style type="text/css">
+        table {
+            border: 1px solid #CCC;
+            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0px 8px;
+        }
+
+        td {
+            border: none;
+            text-align: center;
+        }
+
+        th {
+            border: none;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .button {
+            background-color: mediumblue;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+
+    @Html.Partial("~/Views/Main/Menu.cshtml")
+
+
+    <div class="mdl-tabs__panel" id="tabListClient">
+
+
+
+        <div class="mdl-grid">
+
+
+
+            <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+                <div class="full-width panel mdl-shadow--2dp">
+
+                    <div class="right">
+                        <button type="button" class="button" onclick="location.href='@Url.Action("CrearPeliculas", "Peliculas")'">
+                            +
+                        </button>
+
+                    </div>
+
+                    <div class="full-width panel-tittle bg-success text-center tittles">
+                        Lista de Peliculas
+                    </div>
+
+                    @using (Html.BeginForm("Index", "Peliculas", FormMethod.Get))
+                    {
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            @Html.TextBox("searchData", ViewBag.Filter as string, new { @class = "mdl-textfield__input" })
+                            <label class="mdl-textfield__label" for="NameClient">Filtrar</label>
+
+                        </div>
+                        <input type="submit" value="Buscar" id="Buscar" class="button" />
+                    }
+
+                    <div class="full-width panel-content">
+                        <table border=1 width="100%" align="center" class="table">
+                            <tr>
+                                <th>
+                                    Titulo
+                                </th>
+
+                                <th>
+                                    Tipo
+                                </th>
+
+                                <th>
+                                    Año de Publicacion
+                                </th>
+
+
+                                <th>
+                                    Imagen
+                                </th>
+
+                                <th>
+                                    Director
+                                </th>
+
+
+
+                                <th>Opciones</th>
+                            </tr>
+
+                            @foreach (var pe in Model)
+                            {
+                                <tr>
+
+
+                                    <td>
+                                        @Html.DisplayFor(x => pe.Nombre)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(x => pe.Genero)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(x => pe.AñoPublicacion)
+                                    </td>
+
+                                    <td>
+
+                                        <img src="@Url.Action("RetrieveImage", "Peliculas", new {id = pe.Id_peliculas })" height=120 width=120 />
+
+                                    </td>
+
+
+                                    <td>
+                                        @Html.DisplayFor(x=>pe.Director)
+                                    </td>
+
+                                    <td>
+
+                                        @Html.ActionLink("Editar", "Editar", new { id = pe.Id_peliculas })
+                                        | @Html.ActionLink("Eliminar", "Eliminar", new { id = pe.Id_peliculas })
+
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </table>
+
+                        <br />
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, pageNo => Url.Action("Index", new { pageNo, Sorting_Order = ViewBag.CurrentSortOrder, filterValue = ViewBag.Filter }))
+
+
+
+                    </div>
+                </div>
+            </div>
+</body>
+
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+<script>
+    $(document).ready(function () {
+        $("#searchData").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+
+

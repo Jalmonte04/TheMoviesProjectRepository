@@ -1,0 +1,54 @@
+﻿@model TheMovies.Models.Peliculas
+
+@Html.Partial("~/Views/Main/Menu.cshtml")
+
+
+@using (Html.BeginForm())
+{
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <legend class="text-condensedLight"><i class="zmdi zmdi-border-color"></i> &nbsp; Eliminar Peliculas</legend><br>
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col">
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(x => x.Nombre, new { @class = "mdl-textfield__input" })
+                <label class="mdl-textfield__label" for="NameClient">Nombre</label>
+                <span class="mdl-textfield__error">Nombre Invalido</span>
+            </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(x => x.Genero, new { @class = "mdl-textfield__input" })
+                <label class="mdl-textfield__label" for="NameClient">Genero</label>
+                <span class="mdl-textfield__error">Nombre Invalido</span>
+            </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(x => x.AñoPublicacion, new { @class = "mdl-textfield__input" })
+                <label class="mdl-textfield__label" for="NameClient"> Año Publicacion</label>
+                <span class="mdl-textfield__error">Nombre Invalido</span>
+            </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+            <img src="@Url.Action("RetrieveImage", "Peliculas", new {id = Model.Id_peliculas })" height=120 width=120 />
+        </div>
+
+
+        <div class="text-center">
+            <input type="submit" value="X" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addClient" />
+            <div class="mdl-tooltip" for="btn-addClient">Eliminar Peliculas</div>
+        </div>
+   
+    </div>
+   
+ </div>
+
+    }
+
